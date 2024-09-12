@@ -13,9 +13,8 @@ ODIR = obj
 SDIR = src
 
 OBJS = \
-	boot.o \
-	kernel_main.o \
-
+       boot.o \
+       kernel_main.o \
 
 
 OBJ = $(patsubst %,$(ODIR)/%,$(OBJS))
@@ -44,7 +43,7 @@ clean:
 
 debug:
 	screen -S qemu -d -m qemu-system-aarch64 -machine raspi3b -kernel kernel8.img -hda rootfs.img -S -s -serial null -serial stdio -monitor none -nographic -k en-us 
-	TERM=xterm gdb -x gdb_init_prot_mode.txt && killall qemu-system-aarch64
+	TERM=xterm gdb-multiarch -x gdb_init_prot_mode.txt && killall qemu-system-aarch64
 
 run:
 	qemu-system-aarch64 -machine raspi3b -kernel kernel8.img -hda rootfs.img -serial null -serial stdio -monitor none -nographic -k en-us
@@ -61,4 +60,5 @@ rootfs.img:
 	sudo mkdir /mnt/disk/bin
 	sudo mkdir /mnt/disk/etc
 	sudo umount /mnt/disk
+
 
